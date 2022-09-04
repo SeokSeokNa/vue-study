@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Component Data Transfer</title>
+</head>
+<body>
+
+    <div id="app">
+        <!-- 하위 컴포넌트에서 발생한 이벤트 수신방법
+           v-on : 하위컴포넌트의 이벤트명 = "상위 컴포넌트의 메소드명"
+        -->
+        <child-component v-on:show-log = "printText"></child-component>
+
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        // 하위 -> 상위 컴포넌트로 통신하는 방식은 이벤트 형식을 이용해야한다.
+        // 하위에서 상위로는 데이터를 전달하려면 이벤트 버스라는걸 이용해야한다. 하지만 이번에는 다루지 않고 통신이 어떻게 이루어지는 지만 본다.
+        // 상위 컴포넌트는 하위 컴포넌트에서 특정 이벤트가 발생하기를 기다리고 있다가 해당 이벤트를 수신하여 상위 컴포넌트의 메소드를 호출하게 된다.
+        // $emit()를 이용하여 이벤트를 발생시키고 v-on을 이용하여 이벤트를 수신한다.
+        Vue.component('child-component', {
+            template: '<button v-on:click="showLog">show</button>',
+            methods: {
+                showLog: function () {
+                    this.$emit('show-log') //this 는 해당 컴포넌트 자체를 가르킴
+                },
+            }
+        });
+
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue! passed from Parent Component'
+            },
+            methods: {
+                printText: function () {
+                    console.log('received an event');
+                },
+            }
+        })
+    </script>
+</body>
+</html>

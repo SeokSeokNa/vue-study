@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Component Data Transfer</title>
+</head>
+<body>
+
+    <div id="app">
+        <!-- 상위 컴포넌트의 데이터를 전달받는 방법
+           v-bind : props속성명 = "상위 컴포넌트의 데이터 속성명"
+        -->
+        <child-component v-bind:propsdata = "message"></child-component>
+
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        // 가장 기본적인 컴포넌트간 데이터 전달 방식으로 상위 -> 하위 컴포넌트로 데이터를 전달하는 예제이다.
+        // Vue 는 기본적으로 상위 -> 하위로만 데이터를 전달 해야하는 규칙이 있다.
+        // 전역 또는 지역 컴포넌트를 등록하면 상위 컴포넌트는 인스턴스가 되고 하위 컴포넌트는 전역 또는 지역 컴포넌트가 된다.
+        // 인스턴스가 상위 컴포넌트로 자동으로 설정되는건 다른 컴포넌트를 등록하면 자동으로 인스턴스가 상위 컴포넌트로 지정되는 Vue의 규칙이다.
+        // 이러한 상위 컴포넌트로 설정된 인스턴스를 Root Component 라고 부른다.
+        // 상위 -> 하위 컴포넌트로 데이터를 전달할때 사용하는 속성인 'props' 속성을 사용해본 예제이다.
+        Vue.component('child-component', {
+            props: ['propsdata'],
+            template: '<p>{{propsdata}}</p>'
+        });
+
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue! passed from Parent Component'
+            }
+        })
+    </script>
+</body>
+</html>
