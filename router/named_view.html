@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Named View </title>
+</head>
+<body>
+<div id="app">
+    <!--
+        Nested Router는 상위 하위 개념이 있고 한번에 많은 컴포넌트를 표시하는데 제약이있다.
+        하지만 Named View는 상하위 개념이 아닌 같은 레벨의 컴포넌트를 동시에 표시할 수 있다.
+    -->
+
+
+    <router-link to="/">First page</router-link>
+
+    <router-view name="header"></router-view>
+    <router-view></router-view> <!--name 속성이 없으면 default가 된다.-->
+    <router-view name="footer"></router-view>
+</div>
+
+<script src="../vue.js"></script>
+<script src="../vue_router.js"></script>
+
+<script>
+    var Body = {template : '<div>This is Body</div>'}
+    var Header = {template: '<div>Header</div>'};
+    var Footer = {template: '<div>Footer</div>'};
+
+
+    //Nested Router 정의
+    const routes = [
+        {
+            path: '/',
+            components: {
+                default:Body,
+                header:Header, //router-view 의 name 속성과 연결시킨다.
+                footer:Footer
+            }
+        },
+    ]
+
+    const router = VueRouter.createRouter({
+        history: VueRouter.createWebHistory(),
+        routes
+    });
+
+     const app = Vue.createApp({})
+        .use(router)
+        .mount('#app');
+
+</script>
+</body>
+</html>
