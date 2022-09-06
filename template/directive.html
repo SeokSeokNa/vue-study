@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Router Simple</title>
+</head>
+<body>
+<div id="app">
+    <h1>Directive Exam</h1>
+
+
+    <!--
+      vue Directive 란?
+       "v-" 접두사를 가진 모든 속성을 의미한다.
+       또한 화면의 요소를 더 쉽게 조작하기 위해 사용한다.
+
+      종류
+       1. v-if -> 참 거짓 판단 ,  false 일 경우 태그를 아에 삭제함
+       2. v-for -> 반복문
+       3. v-show -> if 와 마찬가지로 동작하지만 태그는 남아있고 css 만 display:none 이됨
+       4. v-bind -> html 속성과 vue의 데이터 속성을 연결
+       5. v-on -> 이벤트 감지를 위해 사용 , ex) on:click 이벤트
+       6. v-model -> form 태그에 보통 많이 사용하며 입력한 값을 vue 인스턴스의 데이터와 즉시 동기화한다!
+                  -> 서버에 데이터 전송시 사용하게될 것
+                  -> input , select ,textarea 같은 태그에서만 사용한다.
+    -->
+
+
+    <a v-if="flag">두잇 vue.js</a>
+    <ul>
+        <li v-for="user in users">{{user}}</li>
+    </ul>
+
+    <p v-show="flag">두잇 vue.js</p>
+    <h5 v-bind:id="uid">뷰 입문서</h5>
+    <button v-on:click="popupAlert('테스트')">경고 창 버튼</button>
+
+</div>
+
+<script src="../vue.js"></script>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                flag: false,
+                users: ['user1' , 'user2' , 'user3'],
+                uid: 10
+            }
+
+        },
+
+        methods: {
+            popupAlert: function (param) {
+                return alert('파라미터 출력 : ' +param);
+            }
+        }
+    });
+    app.mount('#app');
+</script>
+</body>
+</html>

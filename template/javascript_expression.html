@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Javascript Expression</title>
+</head>
+<body>
+<div id="app">
+    <h1>v-bind 예제</h1>
+
+
+    <!--
+        {{}} 콧수염 표현식에 자바스크립트 표현식을 넣을 수 있다.
+        다만 복잡한 연산은 지원하지 않으니 Vue 인스턴스에서 연산을 처리하고 화면에는 결과만 표시하도록 하자
+    -->
+    {{message.split('').reverse().join('')}}
+    {{reversedMessage}}
+    {{booleanVal ? 100 : 0}}
+</div>
+
+<script src="../vue.js"></script>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                message: 'Hello Vue.js!'
+            }
+        } ,
+        computed: { //computed 속성은 연산을 처리할때 사용한다. 다만 복잡한 연산을 처리하면 할 수는있지만 코드가 너무 길어지고 가독성이 떨어지니 적당히 타협해서 사용하자 ,
+                    //computed 속성은 은 ddata 속성 값의 변화에 따라 자동으로 다시 연산하는 장점이 있다.
+                    //데이터 자동갱신의 효과
+            reversedMessage() {
+                return this.message.split('').reverse().join('')
+            },
+            booleanVal() {
+                return true
+            }
+        }
+    });
+    app.mount('#app');
+</script>
+</body>
+</html>
