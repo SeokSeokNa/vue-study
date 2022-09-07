@@ -1,0 +1,6 @@
+vue 프로젝트 생성방법
+ vue init webpack-simple 프로젝트명   --> 레거시 방식으로 eslint , unit test 등을 선택해야하고 웹팩 설정파일이 js 파일로 노출되어있음
+                                     --> 프로젝트가 생성되면 npm install 명령어를 통해 필요한 라이브러리를 설치한 후 npm run dev로 프로젝트를 실행시킨다.
+
+ vue create 프로젝트명 -> 현재방식으로 babel , eslint 등을 디폴트로 설정되며 웹팩 설정파일이 노출되어있지 않음
+                      -> npm run serve 명령어로 프로젝트를 실행시킨다.
