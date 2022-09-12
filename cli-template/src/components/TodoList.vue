@@ -1,14 +1,14 @@
 <template>
   <section>
-    <ul>
-      <li class="shadow" v-for="(todoItem , index) in propsdata" v-bind:key="todoItem">
+    <transition-group name="list" tag="ul">
+      <li class="shadow" v-for="(todoItem , index) in propsdata" :key="todoItem">
         <i class="checkBtn fas fa-check" aria-hidden="true"></i>
         {{todoItem}}
         <span class="removeBtn" type="button" @click="removeTodo(todoItem , index)"> <!--index 는 vue에서 내부적으로 관리되고 있음-->
           <i class="far fa-trash-alt" aria-hidden="true"></i>
         </span>
       </li>
-    </ul>
+    </transition-group>
   </section>
 </template>
 
@@ -36,6 +36,14 @@ export default {
 </script>
 
 <style scoped>
+  .list-enter-active, .list-leave-active {
+    transition: all 1s;
+  }
+  .list-enter-to, .list-leave-to {
+    opacity: 0;
+    transform: translate(30px);
+  }
+
   ul {
     list-style-type: none;
     padding-left: 0;
