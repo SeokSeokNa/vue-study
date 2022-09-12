@@ -2,9 +2,9 @@
 <!--  <img alt="Vue logo" src="./assets/logo.png">-->
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput></TodoInput>
-    <TodoList></TodoList>
-    <TodoFooter></TodoFooter>
+    <TodoInput v-on:addTodo="addTodo"></TodoInput>
+    <TodoList v-bind:propsdata = "todoItems" @removeTodo = "removeTodo"></TodoList>
+    <TodoFooter v-on:removeAll="clearAll"></TodoFooter>
   </div>
 </template>
 
@@ -18,6 +18,32 @@ import TodoFooter from "@/components/TodoFooter";
 
 export default {
   name: 'App',
+  data() {
+    return {
+      todoItems : []
+    }
+  },
+  created() {
+    if (localStorage.length > 0) {
+      for (var i = 0; i < localStorage.length; i++) {
+        this.todoItems.push(localStorage.key(i))
+      }
+    }
+  },
+  methods: {
+    addTodo(todoItem) { //TodoInput.vue 파일에서 호출받았을때 동작한다.
+      localStorage.setItem(todoItem, todoItem); /*로컬스토리지에 데이터 저장하는 기능*/
+      this.todoItems.push(todoItem);
+    },
+    clearAll() {
+      localStorage.clear();
+      this.todoItems = [];
+    },
+    removeTodo(todoItem, index) {
+      localStorage.removeItem(todoItem);
+      this.todoItems.splice(index, 1);
+    }
+  },
   components: {
     'TodoHeader' : TodoHeader,
     'TodoInput' : TodoInput,

@@ -18,7 +18,7 @@ export default {
     addTodo() {
       if (this.newTodoItem !== "") {
         var value = this.newTodoItem && this.newTodoItem.trim();
-        localStorage.setItem(value, value); /*로컬스토리지에 데이터 저장하는 기능*/
+        this.$emit('addTodo' , value) //상위 컴포넌트인 App.vue 의 addTodo 메소드에 파라미터를 넘기며 호출한다.
         this.clearInput()
       }
     },
